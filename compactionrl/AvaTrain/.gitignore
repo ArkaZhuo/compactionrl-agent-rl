@@ -1,0 +1,22 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+/exp/
+runs
+wandb
+.sii
+.inspire/
+/core.*
+
+CLAUDE.md
+
+# Local credentials (never commit)
+scripts/train/.env
+scripts/train/.sandbox_credentials.sh

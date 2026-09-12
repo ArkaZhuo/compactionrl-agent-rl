@@ -1,0 +1,83 @@
+[project]
+name = "ava-train"
+version = "0.1.0"
+requires-python = ">=3.12, <3.13"
+dependencies = [
+    "miles",
+    "megatron-core",
+    "sglang",
+    "pylance>=7.0.0",
+    "jsonlines>=4.0.0",
+    "inspire_sandbox==0.0.12",
+]
+
+[project.optional-dependencies]
+swe = ["swebench>=4.1"]
+
+[tool.uv.sources]
+miles = { workspace = true }
+megatron-core = { workspace = true }
+sglang = { workspace = true }
+inspire_sandbox = { index = "inspire-pypi" }
+torch = { index = "pytorch-cu130" }
+torchvision = { index = "pytorch-cu130" }
+apex = { url = "https://github.com/fnlp-agentRL/AvaWheels/releases/download/apex-cu130-x86_64/apex-0.1-cp312-cp312-linux_x86_64.whl" }
+fake-int4-quant-cuda = { url = "https://github.com/yueming-yuan/miles-wheels/releases/download/cu130-x86_64/fake_int4_quant_cuda-0.0.0-cp312-cp312-linux_x86_64.whl" }
+flash-attn = { url = "https://github.com/fnlp-agentRL/AvaWheels/releases/download/flash-attn-cu130-x86_64/flash_attn-2.7.4.post1-cp312-cp312-linux_x86_64.whl" }
+flash-attn-3 = { url = "https://github.com/fnlp-agentRL/AvaWheels/releases/download/fa3-cu130-x86_64/flash_attn_3-3.0.0b1-1-cp39-abi3-linux_x86_64.whl" }
+mbridge = { git = "https://github.com/ISEEKYAN/mbridge.git", rev = "89eb10887887bc74853f89a4de258c0702932a1c" }
+torch-memory-saver = { git = "https://github.com/fzyzcjy/torch_memory_saver.git", rev = "d64a639" }
+megatron-bridge = { git = "https://github.com/radixark/Megatron-Bridge.git", rev = "6fde1c8538ea4ad966c7fba5f759be54f943b598" }
+sglang-router = { url = "https://github.com/yueming-yuan/miles-wheels/releases/download/cu130-x86_64/sglang_router-0.3.2-cp38-abi3-manylinux_2_39_x86_64.whl" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[[tool.uv.index]]
+name = "inspire-pypi"
+url = "https://s.infly.cn/pip/simple/"
+explicit = true
+
+[tool.uv.workspace]
+members = ["miles", "Megatron-LM", "sglang/python"]
+
+[tool.uv]
+no-build-isolation-package = [
+    "apex",
+    "causal-conv1d",
+    "mamba-ssm",
+    "megatron-bridge",
+    "flash-attn",
+    "flash-linear-attention",
+    "transformer-engine-torch",
+]
+
+override-dependencies = [
+    "transformers>=5.9.0",
+    "kernels<0.15",
+    "blobfile>=3.2.0",
+    "torch==2.11.0+cu130",
+    "torch-memory-saver",
+]
+
+dependency-metadata = [
+    { name = "flashinfer-jit-cache", version = "0.6.11.post1+cu130", requires-dist = [
+    ] },
+    { name = "megatron-bridge", version = "0.5.0+6fde1c85", requires-dist = [
+    ] },
+    { name = "transformer-engine-torch", version = "2.12.0", requires-dist = [
+        "einops",
+        "nvdlfw-inspect",
+        "onnx",
+        "onnxscript",
+        "packaging",
+        "pydantic",
+        "torch",
+    ] },
+]
+
+[tool.uv.extra-build-dependencies]
+deep-ep = ["torch==2.11.0+cu130", "ninja"]
+flash-mla = ["torch"]
